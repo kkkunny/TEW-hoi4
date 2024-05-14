@@ -1,8 +1,7 @@
 package config
 
-import stlos "github.com/kkkunny/stl/os"
-
 var (
-	HOI4RootPath = stlos.NewFilePath(`F:\SteamLibrary\steamapps\common\Hearts of Iron IV`)
-	HOI4ModPath  = stlos.NewFilePath(`C:\Users\14012\Documents\Paradox Interactive\Hearts of Iron IV\mod`)
+	HOI4RootPath  = `F:\SteamLibrary\steamapps\common\Hearts of Iron IV`
+	HOI4ModPath   = `C:\Users\14012\Documents\Paradox Interactive\Hearts of Iron IV\mod`
+	HOI4MyModPath = `W:\code\go\github.com\kkkunny\TEW-hoi4\mod`
 )

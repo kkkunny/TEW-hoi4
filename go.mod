@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	github.com/ftrvxmtrx/tga v0.0.0-20150524081124-bd8e8d5be13a
 	github.com/gookit/color v1.5.4
-	github.com/kkkunny/stl v0.0.0-20240505110711-21bd5af31ca4
+	github.com/kkkunny/stl v0.0.0-20240514141941-ccddb03b8ed0
 	golang.org/x/exp v0.0.0-20231226003508-02704c960a9b
 	golang.org/x/image v0.16.0
 )
