@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/kkkunny/stl/container/linkedhashmap"
+	stlmaps "github.com/kkkunny/stl/container/maps"
 	stlslices "github.com/kkkunny/stl/container/slices"
 	"golang.org/x/exp/maps"
 )
@@ -61,11 +62,11 @@ func ParseState(path string) (*State, error) {
 	})
 	content = regexp.MustCompile(`,?"add_core_of":"(.+?)"`).ReplaceAllString(content, "")
 
-	claimResults := regexp.MustCompile(`"add_claim_of":"(.+?)"`).FindAllStringSubmatch(content, -1)
+	claimResults := regexp.MustCompile(`"add_claim_by":"(.+?)"`).FindAllStringSubmatch(content, -1)
 	claims := stlslices.Map(claimResults, func(_ int, e []string) string {
 		return e[1]
 	})
-	content = regexp.MustCompile(`,?"add_claim_of":"(.+?)"`).ReplaceAllString(content, "")
+	content = regexp.MustCompile(`,?"add_claim_by":"(.+?)"`).ReplaceAllString(content, "")
 
 	content = regexp.MustCompile(`\{([\d,]+)}`).ReplaceAllString(content, "[${1}]")
 	content = regexp.MustCompile(`(\d+):`).ReplaceAllString(content, "\"${1}\":")
@@ -139,7 +140,7 @@ func (state *State) Encode() string {
 	}
 	if len(state.History.Claims) != 0 {
 		for i, claim := range state.History.Claims {
-			cache.History.Set(fmt.Sprintf("add_claim_of_%d", i), claim)
+			cache.History.Set(fmt.Sprintf("add_claim_by_%d", i), claim)
 		}
 	}
 	vicPoints := stlslices.Filter(stlslices.Map(state.History.VictoryPoints, func(i int, e int64) string {
@@ -154,11 +155,18 @@ func (state *State) Encode() string {
 		cache.History.Set("victory_points", vicPoints)
 	}
 	if len(state.History.CommonBuildings) != 0 {
-		cache.History.Set("buildings", state.History.CommonBuildings)
+		buildings := stlmaps.Map[string, int64, map[string]int64, string, any, map[string]any](state.History.CommonBuildings, func(k string, v int64) (string, any) {
+			return k, v
+		})
+		cache.History.Set("buildings", buildings)
 	}
 	if len(state.History.ProvinceBuildings) != 0 {
+		if !cache.History.ContainKey("buildings") {
+			cache.History.Set("buildings", make(map[string]any))
+		}
+		buildings := cache.History.Get("buildings").(map[string]any)
 		for provinceID, building := range state.History.ProvinceBuildings {
-			cache.History.Set(strconv.FormatInt(provinceID, 10), building)
+			buildings[strconv.FormatInt(provinceID, 10)] = building
 		}
 	}
 
@@ -170,7 +178,7 @@ func (state *State) Encode() string {
 	content = strings.ReplaceAll(content, "\"", "")
 	content = regexp.MustCompile(`name = (.+)`).ReplaceAllString(content, "name = \"${1}\"")
 	content = regexp.MustCompile(`add_core_of_\d+`).ReplaceAllString(content, "add_core_of")
-	content = regexp.MustCompile(`add_claim_of_\d+`).ReplaceAllString(content, "add_claim_of")
+	content = regexp.MustCompile(`add_claim_by_\d+`).ReplaceAllString(content, "add_claim_by")
 	content = strings.ReplaceAll(content, "[", "{")
 	content = strings.ReplaceAll(content, "]", "}")
 	return "state = " + content

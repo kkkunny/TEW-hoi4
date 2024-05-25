@@ -584,12 +584,31 @@ func main() {
 		if stateInfo.IsDir() {
 			continue
 		}
-		fmt.Println(stateInfo.Name())
 		fp := filepath.Join(modPath, "history", "states", stateInfo.Name())
 		state, err := history.ParseState(fp)
 		if err != nil {
 			panic(err)
 		}
+
+		switch {
+		// 删除
+		// case stlslices.Contain(state.History.Cores, "GAL") || stlslices.Contain(state.History.Claims, "GAL"):
+		// 	claims := hashset.NewHashSetWith(state.History.Claims...)
+		// 	claims.Remove("GAL")
+		// 	state.History.Claims = claims.ToSlice().ToSlice()
+		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
+		// 	cores.Remove("GAL")
+		// 	state.History.Cores = cores.ToSlice().ToSlice()
+		// case stlslices.ContainAny(state.History.Cores, "TUR", "LEB", "SYR", "CYP", "IRQ", "JOR", "PAL"):
+		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
+		// 	cores.Add("OTT")
+		// 	state.History.Cores = cores.ToSlice().ToSlice()
+		case len(state.History.Claims) != 0:
+
+		default:
+			continue
+		}
+		fmt.Println(stateInfo.Name())
 
 		err = os.WriteFile(fp, []byte(state.Encode()), 0666)
 		if err != nil {
