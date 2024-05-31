@@ -1,125 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
 	"github.com/kkkunny/TEW-hoi4/config"
-	"github.com/kkkunny/TEW-hoi4/parser/history"
+	"github.com/kkkunny/TEW-hoi4/util"
 )
 
-// type CountryTag struct {
-// 	Tag            string
-// 	DefineFilePath stlos.FilePath
-// }
-//
-// func GetAllCountryTags() (map[string]*CountryTag, error) {
-// 	countryTagsDir := config.HOI4RootPath.Join("common", "country_tags")
-// 	fileInfos, err := os.ReadDir(countryTagsDir.String())
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	countries, err := stlslices.FlatMapError(fileInfos, func(_ int, fileInfo os.DirEntry) ([]*CountryTag, error) {
-// 		if fileInfo.IsDir() || !strings.HasSuffix(fileInfo.Name(), ".txt") || strings.Contains(fileInfo.Name(), "dynamic") {
-// 			return nil, nil
-// 		}
-// 		fileData, err := os.ReadFile(countryTagsDir.Join(fileInfo.Name()).String())
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		countryMatchs := regexp.MustCompile(`(\w{3})\s*=\s*"(.*?)"`).FindAllStringSubmatch(string(fileData), -1)
-// 		return stlslices.FlatMap(countryMatchs, func(_ int, countryMatch []string) []*CountryTag {
-// 			if len(countryMatch) < 3 {
-// 				return nil
-// 			}
-// 			return []*CountryTag{{
-// 				Tag:            countryMatch[1],
-// 				DefineFilePath: stlos.NewFilePath(countryMatch[2]),
-// 			}}
-// 		}), nil
-// 	})
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return stlslices.ToMap[*CountryTag, []*CountryTag, string, *CountryTag, map[string]*CountryTag](countries, func(country *CountryTag) (string, *CountryTag) {
-// 		return country.Tag, country
-// 	}), nil
-// }
-//
-// type CountryColor struct {
-// 	Color   color.RGBA
-// 	ColorUI color.RGBA
-// }
-//
-// func GetAllCountryColors() (map[string]*CountryColor, error) {
-// 	countryColorData, err := os.ReadFile(config.HOI4RootPath.Join("common", "countries", "colors.txt").String())
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	colorMatchs := regexp.MustCompile(`(\w{3})\s*=\s*{\s*color\s*=\s*(\w*?)\s*{\s*([\d.]+?)\s*([\d.]+?)\s*([\d.]+?)\s*}\s*color_ui\s*=\s*(\w*?)\s*{\s*([\d.]+?)\s*([\d.]+?)\s*([\d.]+?)\s*}`).FindAllStringSubmatch(strings.ReplaceAll(string(countryColorData), "\n", " "), -1)
-// 	colors, err := stlslices.FlatMapError(colorMatchs, func(_ int, colorMatch []string) ([]pair.Pair[string, *CountryColor], error) {
-// 		if len(colorMatch) < 10 {
-// 			return nil, nil
-// 		}
-// 		v1, _ := strconv.ParseFloat(colorMatch[3], 64)
-// 		v2, _ := strconv.ParseFloat(colorMatch[4], 64)
-// 		v3, _ := strconv.ParseFloat(colorMatch[5], 64)
-// 		colorVal, err := util.Color(colorMatch[2], v1, v2, v3)
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		v1, _ = strconv.ParseFloat(colorMatch[7], 64)
-// 		v2, _ = strconv.ParseFloat(colorMatch[8], 64)
-// 		v3, _ = strconv.ParseFloat(colorMatch[9], 64)
-// 		colorUI, err := util.Color(colorMatch[6], v1, v2, v3)
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		return []pair.Pair[string, *CountryColor]{pair.NewPair(colorMatch[1], &CountryColor{
-// 			Color:   colorVal,
-// 			ColorUI: colorUI,
-// 		})}, nil
-// 	})
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return stlslices.ToMap[pair.Pair[string, *CountryColor], []pair.Pair[string, *CountryColor], string, *CountryColor, map[string]*CountryColor](colors, func(p pair.Pair[string, *CountryColor]) (string, *CountryColor) {
-// 		return p.First, p.Second
-// 	}), nil
-// }
-//
-// type CountryDefine struct {
-// 	Color color.RGBA
-// }
-//
-// func GetAllCountryDefines(countries []*CountryTag) (map[string]*CountryDefine, error) {
-// 	defs, err := stlslices.MapError(countries, func(_ int, countryTag *CountryTag) (pair.Pair[string, *CountryDefine], error) {
-// 		defData, err := os.ReadFile(config.HOI4RootPath.Join("common", countryTag.DefineFilePath.String()).String())
-// 		if err != nil {
-// 			return stlbasic.Default[pair.Pair[string, *CountryDefine]](), err
-// 		}
-// 		colorMatchs := regexp.MustCompile(`color\s*=\s*(\w*?)\s*{\s*([\d.]+?)\s*([\d.]+?)\s*([\d.]+?)\s*}`).FindStringSubmatch(strings.ReplaceAll(string(defData), "\n", " "))
-// 		if len(colorMatchs) < 5 {
-// 			return stlbasic.Default[pair.Pair[string, *CountryDefine]](), errors.New("color not found")
-// 		}
-// 		v1, _ := strconv.ParseFloat(colorMatchs[2], 64)
-// 		v2, _ := strconv.ParseFloat(colorMatchs[3], 64)
-// 		v3, _ := strconv.ParseFloat(colorMatchs[4], 64)
-// 		colorVal, err := util.Color(colorMatchs[1], v1, v2, v3)
-// 		if err != nil {
-// 			return stlbasic.Default[pair.Pair[string, *CountryDefine]](), err
-// 		}
-// 		return pair.NewPair(countryTag.Tag, &CountryDefine{Color: colorVal}), nil
-// 	})
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return stlslices.ToMap[pair.Pair[string, *CountryDefine], []pair.Pair[string, *CountryDefine], string, *CountryDefine, map[string]*CountryDefine](defs, func(def pair.Pair[string, *CountryDefine]) (string, *CountryDefine) {
-// 		return def.First, def.Second
-// 	}), nil
-// }
-//
 // type CountryHistory struct {
 // 	Ideology string
 // }
@@ -575,42 +463,76 @@ func main() {
 	// if err != nil {
 	// 	panic(err)
 	// }
+
 	modPath := filepath.Join(config.HOI4MyModPath, "TheEmptyWorld")
-	stateInfos, err := os.ReadDir(filepath.Join(modPath, "history", "states"))
+	// stateContinentMap, err := _map.ParseStateDef(filepath.Join(modPath, "map", "definition.csv"))
+	// stateInfos, err := os.ReadDir(filepath.Join(modPath, "history", "states"))
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// for _, stateInfo := range stateInfos {
+	// 	if stateInfo.IsDir() {
+	// 		continue
+	// 	}
+	// 	fp := filepath.Join(modPath, "history", "states", stateInfo.Name())
+	// 	state, err := history.ParseState(fp)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	//
+	// 	if stateDef, ok := stateContinentMap[state.ID]; ok && stateDef.ContinentID == 4 {
+	// 		cores := hashset.NewHashSetWith(state.History.Cores...)
+	// 		cores.Add("NAM")
+	// 		state.History.Cores = cores.ToSlice().ToSlice()
+	// 	} else {
+	// 		continue
+	// 	}
+	// 	// switch {
+	// 	// // 删除
+	// 	// // case stlslices.Contain(state.History.Cores, "GAL") || stlslices.Contain(state.History.Claims, "GAL"):
+	// 	// // 	claims := hashset.NewHashSetWith(state.History.Claims...)
+	// 	// // 	claims.Remove("GAL")
+	// 	// // 	state.History.Claims = claims.ToSlice().ToSlice()
+	// 	// // 	cores := hashset.NewHashSetWith(state.History.Cores...)
+	// 	// // 	cores.Remove("GAL")
+	// 	// // 	state.History.Cores = cores.ToSlice().ToSlice()
+	// 	// // case stlslices.ContainAny(state.History.Cores, "USA", "CAN", "MAX", "GDL", "BAS", "PUE", "DOM", "HAI", "BAH", "JAM", "CUB", "COS", "NIC", "HON", "ELS", "BLZ", "GUA", "CTA"):
+	// 	// // 	cores := hashset.NewHashSetWith(state.History.Cores...)
+	// 	// // 	cores.Add("NAM")
+	// 	// // 	state.History.Cores = cores.ToSlice().ToSlice()
+	// 	// default:
+	// 	// 	continue
+	// 	// }
+	// 	fmt.Println(stateInfo.Name())
+	//
+	// 	err = os.WriteFile(fp, []byte(state.Encode()), 0666)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
+
+	// err := sdk.RefreshCountries()
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	flagPath := filepath.Join(modPath, "gfx", "flags")
+	flagInfos, err := os.ReadDir(flagPath)
 	if err != nil {
 		panic(err)
 	}
-	for _, stateInfo := range stateInfos {
-		if stateInfo.IsDir() {
+	smallFlagPath := filepath.Join(flagPath, "small")
+	mediumFlagPath := filepath.Join(flagPath, "medium")
+	for _, flagInfo := range flagInfos {
+		if flagInfo.IsDir() {
 			continue
 		}
-		fp := filepath.Join(modPath, "history", "states", stateInfo.Name())
-		state, err := history.ParseState(fp)
+		fp := filepath.Join(flagPath, flagInfo.Name())
+		err = util.ResizeAndCopyTgaImage(fp, filepath.Join(smallFlagPath, flagInfo.Name()), 10, 7)
 		if err != nil {
 			panic(err)
 		}
-
-		switch {
-		// 删除
-		// case stlslices.Contain(state.History.Cores, "GAL") || stlslices.Contain(state.History.Claims, "GAL"):
-		// 	claims := hashset.NewHashSetWith(state.History.Claims...)
-		// 	claims.Remove("GAL")
-		// 	state.History.Claims = claims.ToSlice().ToSlice()
-		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
-		// 	cores.Remove("GAL")
-		// 	state.History.Cores = cores.ToSlice().ToSlice()
-		// case stlslices.ContainAny(state.History.Cores, "TUR", "LEB", "SYR", "CYP", "IRQ", "JOR", "PAL"):
-		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
-		// 	cores.Add("OTT")
-		// 	state.History.Cores = cores.ToSlice().ToSlice()
-		case len(state.History.Claims) != 0:
-
-		default:
-			continue
-		}
-		fmt.Println(stateInfo.Name())
-
-		err = os.WriteFile(fp, []byte(state.Encode()), 0666)
+		err = util.ResizeAndCopyTgaImage(fp, filepath.Join(mediumFlagPath, flagInfo.Name()), 41, 26)
 		if err != nil {
 			panic(err)
 		}

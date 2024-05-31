@@ -8,3 +8,5 @@ require (
 	golang.org/x/exp v0.0.0-20231226003508-02704c960a9b
 	golang.org/x/image v0.16.0
 )
+
+require github.com/lucasb-eyer/go-colorful v1.2.0 // indirect

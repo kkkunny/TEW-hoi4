@@ -3,43 +3,42 @@ package util
 import (
 	"fmt"
 	"image/color"
-	"math"
 	"strings"
 
-	stlbasic "github.com/kkkunny/stl/basic"
+	"github.com/lucasb-eyer/go-colorful"
 )
 
-func Color(typeName string, v1, v2, v3 float64) (color.RGBA, error) {
-	switch strings.ToLower(typeName) {
+func NewColorByMode(mode string, v1, v2, v3 float64) (color.Color, error) {
+	switch strings.ToLower(mode) {
 	case "rgb", "":
-		return color.RGBA{R: uint8(v1), G: uint8(v2), B: uint8(v3)}, nil
+		return NewRGB(uint8(v1), uint8(v2), uint8(v3)), nil
 	case "hsv":
-		r, g, b := HSV2RGB(v1, v2, v3)
-		return color.RGBA{R: r, G: g, B: b}, nil
+		return colorful.Hsv(v1, v2, v3), nil
 	default:
-		return stlbasic.Default[color.RGBA](), fmt.Errorf("unknown color type `%s`", typeName)
+		return nil, fmt.Errorf("unknown color type `%s`", mode)
 	}
 }
 
-func HSV2RGB(h, s, v float64) (uint8, uint8, uint8) {
-	c := v * s
-	x := c * (1 - math.Abs(math.Mod(h/60, 2)-1))
-	m := v - c
+func NewRGB(r, g, b uint8) color.Color {
+	return color.RGBA{R: r, G: g, B: b, A: 255}
+}
 
-	var r, g, b float64
-	switch {
-	case h < 60:
-		r, g, b = c, x, 0
-	case 60 <= h && h < 120:
-		r, g, b = x, c, 0
-	case 120 <= h && h < 180:
-		r, g, b = 0, c, x
-	case 180 <= h && h < 240:
-		r, g, b = 0, x, c
-	case 240 <= h && h < 300:
-		r, g, b = x, 0, c
-	case 300 <= h:
-		r, g, b = c, 0, x
-	}
-	return uint8((r + m) * 255), uint8((g + m) * 255), uint8((b + m) * 255)
+func GetRGBA(c color.Color) (uint8, uint8, uint8, uint8) {
+	r, g, b, a := c.RGBA()
+	return uint8(r & 0xFF), uint8(g & 0xFF), uint8(b & 0xFF), uint8(a & 0xFF)
+}
+
+func GetRGB(c color.Color) (uint8, uint8, uint8) {
+	r, g, b, _ := GetRGBA(c)
+	return r, g, b
+}
+
+func AlphaBlendColor(from, to color.Color, ratio float32) color.Color {
+	ra, ga, ba, aa := from.RGBA()
+	rb, gb, bb, _ := to.RGBA()
+	fRatio := float32(aa) * ratio
+	r := (float32(ra)*(65535-fRatio) + float32(rb)*fRatio) / 65535
+	g := (float32(ga)*(65535-fRatio) + float32(gb)*fRatio) / 65535
+	b := (float32(ba)*(65535-fRatio) + float32(bb)*fRatio) / 65535
+	return NewRGB(uint8(r/257), uint8(g/257), uint8(b/257))
 }

@@ -1,0 +1,806 @@
+[
+  {
+    "id": "USA",
+    "name": "美利坚",
+    "region": "Northern_American",
+    "color": [87, 160, 255]
+  },
+  {
+    "id": "CAN",
+    "name": "加拿大",
+    "region": "Northern_American"
+  },
+  {
+    "id": "MEX",
+    "name": "墨西哥",
+    "region": "Northern_American"
+  },
+  {
+    "id": "GUA",
+    "name": "危地马拉",
+    "region": "Northern_American"
+  },
+  {
+    "id": "BLZ",
+    "name": "伯利兹",
+    "region": "Northern_American"
+  },
+  {
+    "id": "ELS",
+    "name": "萨尔瓦多",
+    "region": "Northern_American"
+  },
+  {
+    "id": "HON",
+    "name": "洪都拉斯",
+    "region": "Northern_American"
+  },
+  {
+    "id": "NIC",
+    "name": "尼加拉瓜",
+    "region": "Northern_American"
+  },
+  {
+    "id": "COS",
+    "name": "哥斯达黎加",
+    "region": "Northern_American"
+  },
+  {
+    "id": "PAN",
+    "name": "巴拿马",
+    "region": "Northern_American"
+  },
+  {
+    "id": "CUB",
+    "name": "古巴",
+    "region": "Northern_American"
+  },
+  {
+    "id": "JAM",
+    "name": "牙买加",
+    "region": "Northern_American"
+  },
+  {
+    "id": "BAH",
+    "name": "巴哈马",
+    "region": "Northern_American"
+  },
+  {
+    "id": "HAI",
+    "name": "海地",
+    "region": "Northern_American"
+  },
+  {
+    "id": "DOM",
+    "name": "多米尼加",
+    "region": "Northern_American"
+  },
+  {
+    "id": "PUE",
+    "name": "波多黎各",
+    "region": "Northern_American"
+  },
+  {
+    "id": "BAS",
+    "name": "安的列斯",
+    "region": "Northern_American"
+  },
+  {
+    "id": "GDL",
+    "name": "瓜德罗普",
+    "region": "Northern_American"
+  },
+  {
+    "id": "CTA",
+    "name": "中美洲",
+    "region": "Northern_American"
+  },
+  {
+    "id": "COL",
+    "name": "哥伦比亚",
+    "region": "Southern_American"
+  },
+  {
+    "id": "VEN",
+    "name": "委内瑞拉",
+    "region": "Southern_American"
+  },
+  {
+    "id": "ECU",
+    "name": "厄瓜多尔",
+    "region": "Southern_American"
+  },
+  {
+    "id": "PRU",
+    "name": "秘鲁",
+    "region": "Southern_American"
+  },
+  {
+    "id": "BOL",
+    "name": "玻利维亚",
+    "region": "Southern_American"
+  },
+  {
+    "id": "BRA",
+    "name": "巴西",
+    "region": "Southern_American",
+    "color": [76, 145, 63]
+  },
+  {
+    "id": "ARG",
+    "name": "阿根廷",
+    "region": "Southern_American"
+  },
+  {
+    "id": "CHL",
+    "name": "智利",
+    "region": "Southern_American"
+  },
+  {
+    "id": "PAR",
+    "name": "巴拉圭",
+    "region": "Southern_American"
+  },
+  {
+    "id": "URG",
+    "name": "乌拉圭",
+    "region": "Southern_American"
+  },
+  {
+    "id": "GYA",
+    "name": "圭亚那",
+    "region": "Southern_American"
+  },
+  {
+    "id": "CRC",
+    "name": "安的列斯",
+    "region": "Southern_American"
+  },
+  {
+    "id": "TRI",
+    "name": "特立尼达和多巴哥",
+    "region": "Southern_American"
+  },
+  {
+    "id": "GCO",
+    "name": "新格拉纳达",
+    "region": "Southern_American"
+  },
+  {
+    "id": "AST",
+    "name": "澳大利亚",
+    "region": "Australian"
+  },
+  {
+    "id": "NZL",
+    "name": "新西兰",
+    "region": "Australian"
+  },
+  {
+    "id": "PNG",
+    "name": "巴布亚",
+    "region": "Australian"
+  },
+  {
+    "id": "SOL",
+    "name": "所罗门",
+    "region": "Australian"
+  },
+  {
+    "id": "TAH",
+    "name": "塔希提",
+    "region": "Australian"
+  },
+  {
+    "id": "FIJ",
+    "name": "斐济",
+    "region": "Australian"
+  },
+  {
+    "id": "SAM",
+    "name": "萨摩亚",
+    "region": "Australian"
+  },
+  {
+    "id": "FSM",
+    "name": "密克罗尼西亚",
+    "region": "Australian"
+  },
+  {
+    "id": "GUM",
+    "name": "马里亚纳",
+    "region": "Australian"
+  },
+  {
+    "id": "HAW",
+    "name": "夏威夷",
+    "region": "Australian"
+  },
+  {
+    "id": "TAH",
+    "name": "塔希提",
+    "region": "Australian"
+  },
+  {
+    "id": "ENG",
+    "name": "英格兰",
+    "region": "Western_European"
+  },
+  {
+    "id": "SCO",
+    "name": "苏格兰",
+    "region": "Western_European"
+  },
+  {
+    "id": "ELS",
+    "name": "威尔士",
+    "region": "Western_European"
+  },
+  {
+    "id": "IRE",
+    "name": "爱尔兰",
+    "region": "Western_European"
+  },
+  {
+    "id": "BRI",
+    "name": "不列颠",
+    "region": "Western_European"
+  },
+  {
+    "id": "POR",
+    "name": "葡萄牙",
+    "region": "Western_European"
+  },
+  {
+    "id": "SPA",
+    "name": "西班牙",
+    "region": "Western_European",
+    "color": [242, 205, 94]
+  },
+  {
+    "id": "IBE",
+    "name": "伊比利亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "FRA",
+    "name": "法兰西",
+    "region": "Western_European",
+    "color": [74, 147, 255]
+  },
+  {
+    "id": "ITA",
+    "name": "意大利",
+    "region": "Western_European",
+    "color": [67, 127, 63]
+  },
+  {
+    "id": "SWI",
+    "name": "瑞士",
+    "region": "Western_European"
+  },
+  {
+    "id": "BEL",
+    "name": "比利时",
+    "region": "Western_European"
+  },
+  {
+    "id": "HOL",
+    "name": "尼德兰",
+    "region": "Western_European"
+  },
+  {
+    "id": "LUX",
+    "name": "卢森堡",
+    "region": "Western_European"
+  },
+  {
+    "id": "GER",
+    "name": "德意志",
+    "region": "Western_European",
+    "color": [138, 155, 116]
+  },
+  {
+    "id": "DEN",
+    "name": "丹麦",
+    "region": "Northern_European"
+  },
+  {
+    "id": "SCA",
+    "name": "北欧",
+    "region": "Northern_European"
+  },
+  {
+    "id": "SWE",
+    "name": "瑞典",
+    "region": "Northern_European"
+  },
+  {
+    "id": "NOR",
+    "name": "挪威",
+    "region": "Northern_European"
+  },
+  {
+    "id": "FIN",
+    "name": "芬兰",
+    "region": "Northern_European"
+  },
+  {
+    "id": "ICE",
+    "name": "冰岛",
+    "region": "Northern_European"
+  },
+  {
+    "id": "KAR",
+    "name": "卡累利阿",
+    "region": "Northern_European"
+  },
+  {
+    "id": "AUS",
+    "name": "奥地利",
+    "region": "Southern_European"
+  },
+  {
+    "id": "HUN",
+    "name": "匈牙利",
+    "region": "Southern_European"
+  },
+  {
+    "id": "CZE",
+    "name": "捷克",
+    "region": "Southern_European"
+  },
+  {
+    "id": "AUH",
+    "name": "多瑙河",
+    "region": "Southern_European",
+    "color": [194, 198, 215]
+  },
+  {
+    "id": "SLV",
+    "name": "斯洛文尼亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "CRO",
+    "name": "克罗地亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "BOS",
+    "name": "波斯尼亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "MNT",
+    "name": "黑山",
+    "region": "Southern_European"
+  },
+  {
+    "id": "SER",
+    "name": "塞尔维亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "ALB",
+    "name": "阿尔巴尼亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "GRE",
+    "name": "希腊",
+    "region": "Southern_European"
+  },
+  {
+    "id": "MAC",
+    "name": "马其顿",
+    "region": "Southern_European"
+  },
+  {
+    "id": "BUL",
+    "name": "保加利亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "ROM",
+    "name": "罗马利亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "MOL",
+    "name": "摩尔多瓦",
+    "region": "Southern_European"
+  },
+  {
+    "id": "TRA",
+    "name": "特兰西瓦尼亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "POL",
+    "name": "波兰",
+    "region": "Eastern_European",
+    "color": [214, 102, 139]
+  },
+  {
+    "id": "UKR",
+    "name": "乌克兰",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "LIV",
+    "name": "波罗的海",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "LIT",
+    "name": "立陶宛",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "LAT",
+    "name": "拉脱维亚",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "EST",
+    "name": "爱沙尼亚",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "BLR",
+    "name": "白俄罗斯",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "CRI",
+    "name": "克里米亚",
+    "region": "Eastern_European"
+  },
+  {
+    "id": "RUS",
+    "name": "俄罗斯",
+    "region": "Eastern_European",
+    "color": [0, 127, 14]
+  },
+  {
+    "id": "MOR",
+    "name": "摩洛哥",
+    "region": "African"
+  },
+  {
+    "id": "LIB",
+    "name": "利比里亚",
+    "region": "African"
+  },
+  {
+    "id": "ETH",
+    "name": "埃塞俄比亚",
+    "region": "African"
+  },
+  {
+    "id": "SOM",
+    "name": "索马里",
+    "region": "African"
+  },
+  {
+    "id": "SAF",
+    "name": "南非",
+    "region": "African"
+  },
+  {
+    "id": "LBA",
+    "name": "利比亚",
+    "region": "African"
+  },
+  {
+    "id": "EGY",
+    "name": "埃及",
+    "region": "African"
+  },
+  {
+    "id": "COG",
+    "name": "刚果",
+    "region": "African"
+  },
+  {
+    "id": "TUR",
+    "name": "土耳其",
+    "region": "Middle_East"
+  },
+  {
+    "id": "OTT",
+    "name": "奥斯曼",
+    "region": "Middle_East",
+    "color": [68, 154, 92]
+  },
+  {
+    "id": "CYP",
+    "name": "塞浦路斯",
+    "region": "Middle_East"
+  },
+  {
+    "id": "PAL",
+    "name": "巴勒斯坦",
+    "region": "Middle_East"
+  },
+  {
+    "id": "JOR",
+    "name": "约旦",
+    "region": "Middle_East"
+  },
+  {
+    "id": "LEB",
+    "name": "黎巴嫩",
+    "region": "Middle_East"
+  },
+  {
+    "id": "SYR",
+    "name": "叙利亚",
+    "region": "Middle_East"
+  },
+  {
+    "id": "IRQ",
+    "name": "伊拉克",
+    "region": "Middle_East"
+  },
+  {
+    "id": "KUW",
+    "name": "科威特",
+    "region": "Middle_East"
+  },
+  {
+    "id": "SAU",
+    "name": "内志",
+    "region": "Middle_East"
+  },
+  {
+    "id": "QAT",
+    "name": "卡塔尔",
+    "region": "Middle_East"
+  },
+  {
+    "id": "UAE",
+    "name": "阿拉伯酋长国",
+    "region": "Middle_East"
+  },
+  {
+    "id": "YEM",
+    "name": "也门",
+    "region": "Middle_East"
+  },
+  {
+    "id": "OMA",
+    "name": "阿曼",
+    "region": "Middle_East"
+  },
+  {
+    "id": "GEO",
+    "name": "格鲁吉亚",
+    "region": "Middle_East"
+  },
+  {
+    "id": "ARM",
+    "name": "亚美尼亚",
+    "region": "Middle_East"
+  },
+  {
+    "id": "AZR",
+    "name": "阿塞拜疆",
+    "region": "Middle_East"
+  },
+  {
+    "id": "PER",
+    "name": "伊朗",
+    "region": "Middle_East"
+  },
+  {
+    "id": "AFG",
+    "name": "阿富汗",
+    "region": "Middle_East"
+  },
+  {
+    "id": "TMS",
+    "name": "土库曼斯坦",
+    "region": "Central_Asian"
+  },
+  {
+    "id": "KAZ",
+    "name": "哈萨克斯坦",
+    "region": "Central_Asian"
+  },
+  {
+    "id": "UZB",
+    "name": "乌兹别克斯坦",
+    "region": "Central_Asian"
+  },
+  {
+    "id": "TAJ",
+    "name": "塔吉克斯坦",
+    "region": "Central_Asian"
+  },
+  {
+    "id": "KYR",
+    "name": "吉尔吉斯斯坦",
+    "region": "Central_Asian"
+  },
+  {
+    "id": "IND",
+    "name": "印度",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "PAK",
+    "name": "巴基斯坦",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "NEP",
+    "name": "泥泊尔",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "BAN",
+    "name": "孟加拉",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "BHU",
+    "name": "不丹",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "SRL",
+    "name": "斯里兰卡",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "MLD",
+    "name": "马尔代夫",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "BRM",
+    "name": "缅甸",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "SIA",
+    "name": "暹罗",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "INC",
+    "name": "印度支那",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "LAO",
+    "name": "老挝",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "CAM",
+    "name": "柬埔寨",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "VIN",
+    "name": "越南",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "MAL",
+    "name": "马来西亚",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "PHI",
+    "name": "菲律宾",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "SNG",
+    "name": "新加坡",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "INS",
+    "name": "印度尼西亚",
+    "region": "Eastern_Southern_Asian"
+  },
+  {
+    "id": "MAN",
+    "name": "满洲",
+    "region": "Eastern_Southern_Asian",
+    "color": [255, 120, 71]
+  },
+  {
+    "id": "MAN",
+    "name": "满洲",
+    "region": "Eastern_Asian",
+    "color": [255, 120, 71]
+  },
+  {
+    "id": "JAP",
+    "name": "日本",
+    "region": "Eastern_Asian",
+    "color": [255, 191, 191]
+  },
+  {
+    "id": "CHI",
+    "name": "中华",
+    "region": "Eastern_Asian",
+    "color": [255, 244, 190]
+  },
+  {
+    "id": "MON",
+    "name": "蒙古",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "TAN",
+    "name": "图瓦",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "TIB",
+    "name": "西藏",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "SIK",
+    "name": "新疆",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "KOR",
+    "name": "韩国",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "RYU",
+    "name": "琉球",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "FER",
+    "name": "西伯利亚",
+    "region": "Eastern_Asian"
+  },
+  {
+    "id": "PAT",
+    "name": "巴塔哥尼亚",
+    "region": "Southern_American"
+  },
+  {
+    "id": "STA",
+    "name": "南亚美利加",
+    "region": "Southern_American"
+  },
+  {
+    "id": "NAM",
+    "name": "北亚美利加",
+    "region": "Northern_American"
+  },
+  {
+    "id": "OCE",
+    "name": "大洋",
+    "region": "Australian"
+  },
+  {
+    "id": "AFR",
+    "name": "阿非利加",
+    "region": "African"
+  },
+  {
+    "id": "EUR",
+    "name": "欧罗巴",
+    "region": "Western_European"
+  },
+  {
+    "id": "ASA",
+    "name": "亚细亚",
+    "region": "Eastern_Asian"
+  }
+]
