@@ -1,7 +1,7 @@
 github.com/ftrvxmtrx/tga v0.0.0-20150524081124-bd8e8d5be13a h1:eSqaRmdlZ9JsJ7JuWfDr3ym3monToXRczohBOL+heVQ=
 github.com/ftrvxmtrx/tga v0.0.0-20150524081124-bd8e8d5be13a/go.mod h1:US5WvgEHtG+BvWNNs6gk937h0QL2g2x+r7RH8m3g80Y=
-github.com/kkkunny/stl v0.0.0-20240525085015-b70e3a824902 h1:c36wal8TR7dGCOS1c+smW/6KhEj8G5d7Z85kiE5F7K4=
-github.com/kkkunny/stl v0.0.0-20240525085015-b70e3a824902/go.mod h1:/1aKBCEXG7ldA2kGdP4itHcqwORm99D/nb7BXXWvc4g=
+github.com/kkkunny/stl v0.0.0-20240609065723-6392440b831d h1:D6T7Hv7inU5Ef/gUszemU6F86wtl4YfnseHHjXXAn5Q=
+github.com/kkkunny/stl v0.0.0-20240609065723-6392440b831d/go.mod h1:/1aKBCEXG7ldA2kGdP4itHcqwORm99D/nb7BXXWvc4g=
 github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
 github.com/lucasb-eyer/go-colorful v1.2.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 golang.org/x/exp v0.0.0-20231226003508-02704c960a9b h1:kLiC65FbiHWFAOu+lxwNPujcsl8VYyTYYEZnsOO1WK4=

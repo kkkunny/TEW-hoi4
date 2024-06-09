@@ -155,7 +155,7 @@ func (state *State) Encode() string {
 		cache.History.Set("victory_points", vicPoints)
 	}
 	if len(state.History.CommonBuildings) != 0 {
-		buildings := stlmaps.Map[string, int64, map[string]int64, string, any, map[string]any](state.History.CommonBuildings, func(k string, v int64) (string, any) {
+		buildings := stlmaps.Map(state.History.CommonBuildings, func(k string, v int64) (string, any) {
 			return k, v
 		})
 		cache.History.Set("buildings", buildings)

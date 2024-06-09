@@ -1,11 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
+	"github.com/kkkunny/stl/container/hashset"
+	stlslices "github.com/kkkunny/stl/container/slices"
+
 	"github.com/kkkunny/TEW-hoi4/config"
-	"github.com/kkkunny/TEW-hoi4/util"
+	"github.com/kkkunny/TEW-hoi4/parser/history"
 )
 
 // type CountryHistory struct {
@@ -464,77 +468,79 @@ func main() {
 	// 	panic(err)
 	// }
 
-	modPath := filepath.Join(config.HOI4MyModPath, "TheEmptyWorld")
 	// stateContinentMap, err := _map.ParseStateDef(filepath.Join(modPath, "map", "definition.csv"))
-	// stateInfos, err := os.ReadDir(filepath.Join(modPath, "history", "states"))
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// for _, stateInfo := range stateInfos {
-	// 	if stateInfo.IsDir() {
-	// 		continue
-	// 	}
-	// 	fp := filepath.Join(modPath, "history", "states", stateInfo.Name())
-	// 	state, err := history.ParseState(fp)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	//
-	// 	if stateDef, ok := stateContinentMap[state.ID]; ok && stateDef.ContinentID == 4 {
-	// 		cores := hashset.NewHashSetWith(state.History.Cores...)
-	// 		cores.Add("NAM")
-	// 		state.History.Cores = cores.ToSlice().ToSlice()
-	// 	} else {
-	// 		continue
-	// 	}
-	// 	// switch {
-	// 	// // 删除
-	// 	// // case stlslices.Contain(state.History.Cores, "GAL") || stlslices.Contain(state.History.Claims, "GAL"):
-	// 	// // 	claims := hashset.NewHashSetWith(state.History.Claims...)
-	// 	// // 	claims.Remove("GAL")
-	// 	// // 	state.History.Claims = claims.ToSlice().ToSlice()
-	// 	// // 	cores := hashset.NewHashSetWith(state.History.Cores...)
-	// 	// // 	cores.Remove("GAL")
-	// 	// // 	state.History.Cores = cores.ToSlice().ToSlice()
-	// 	// // case stlslices.ContainAny(state.History.Cores, "USA", "CAN", "MAX", "GDL", "BAS", "PUE", "DOM", "HAI", "BAH", "JAM", "CUB", "COS", "NIC", "HON", "ELS", "BLZ", "GUA", "CTA"):
-	// 	// // 	cores := hashset.NewHashSetWith(state.History.Cores...)
-	// 	// // 	cores.Add("NAM")
-	// 	// // 	state.History.Cores = cores.ToSlice().ToSlice()
-	// 	// default:
-	// 	// 	continue
-	// 	// }
-	// 	fmt.Println(stateInfo.Name())
-	//
-	// 	err = os.WriteFile(fp, []byte(state.Encode()), 0666)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// }
+	stateInfos, err := os.ReadDir(filepath.Join(config.TEWRootPath, "history", "states"))
+	if err != nil {
+		panic(err)
+	}
+	for _, stateInfo := range stateInfos {
+		if stateInfo.IsDir() {
+			continue
+		}
+		fp := filepath.Join(config.TEWRootPath, "history", "states", stateInfo.Name())
+		state, err := history.ParseState(fp)
+		if err != nil {
+			panic(err)
+		}
+
+		// if stateDef, ok := stateContinentMap[state.ID]; ok && stateDef.ContinentID == 4 {
+		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
+		// 	cores.Add("NAM")
+		// 	state.History.Cores = cores.ToSlice().ToSlice()
+		// } else {
+		// 	continue
+		// }
+		switch {
+		// 删除
+		// case stlslices.Contain(state.History.Cores, "GAL") || stlslices.Contain(state.History.Claims, "GAL"):
+		// 	claims := hashset.NewHashSetWith(state.History.Claims...)
+		// 	claims.Remove("GAL")
+		// 	state.History.Claims = claims.ToSlice().ToSlice()
+		// 	cores := hashset.NewHashSetWith(state.History.Cores...)
+		// 	cores.Remove("GAL")
+		// 	state.History.Cores = cores.ToSlice().ToSlice()
+		case stlslices.Contain(state.History.Cores, "MEX"):
+			cores := hashset.NewHashSetWith(state.History.Cores...)
+			cores.Add("NAM")
+			state.History.Cores = cores.ToSlice().ToSlice()
+			// claims := hashset.NewHashSetWith(state.History.Claims...)
+			// claims.Add("HUN")
+			// state.History.Claims = claims.ToSlice().ToSlice()
+		default:
+			continue
+		}
+		fmt.Println(stateInfo.Name())
+
+		err = os.WriteFile(fp, []byte(state.Encode()), 0666)
+		if err != nil {
+			panic(err)
+		}
+	}
 
 	// err := sdk.RefreshCountries()
 	// if err != nil {
 	// 	panic(err)
 	// }
 
-	flagPath := filepath.Join(modPath, "gfx", "flags")
-	flagInfos, err := os.ReadDir(flagPath)
-	if err != nil {
-		panic(err)
-	}
-	smallFlagPath := filepath.Join(flagPath, "small")
-	mediumFlagPath := filepath.Join(flagPath, "medium")
-	for _, flagInfo := range flagInfos {
-		if flagInfo.IsDir() {
-			continue
-		}
-		fp := filepath.Join(flagPath, flagInfo.Name())
-		err = util.ResizeAndCopyTgaImage(fp, filepath.Join(smallFlagPath, flagInfo.Name()), 10, 7)
-		if err != nil {
-			panic(err)
-		}
-		err = util.ResizeAndCopyTgaImage(fp, filepath.Join(mediumFlagPath, flagInfo.Name()), 41, 26)
-		if err != nil {
-			panic(err)
-		}
-	}
+	// flagPath := filepath.Join(config.TEWRootPath, "gfx", "flags")
+	// flagInfos, err := os.ReadDir(flagPath)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// smallFlagPath := filepath.Join(flagPath, "small")
+	// mediumFlagPath := filepath.Join(flagPath, "medium")
+	// for _, flagInfo := range flagInfos {
+	// 	if flagInfo.IsDir() {
+	// 		continue
+	// 	}
+	// 	fp := filepath.Join(flagPath, flagInfo.Name())
+	// 	err = util.ResizeAndCopyTgaImage(fp, filepath.Join(smallFlagPath, flagInfo.Name()), 10, 7)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// 	err = util.ResizeAndCopyTgaImage(fp, filepath.Join(mediumFlagPath, flagInfo.Name()), 41, 26)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
 }

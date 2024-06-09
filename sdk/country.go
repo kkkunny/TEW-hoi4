@@ -126,7 +126,7 @@ func RefreshCountries() error {
 			cc := util.AlphaBlendColor(
 				util.NewRGB(c.Color.MustValue()[0], c.Color.MustValue()[1], c.Color.MustValue()[2]),
 				util.NewRGB(tc[0], tc[1], tc[2]),
-				float32(rand.N(5)+3)/10,
+				float32(rand.N(4)+4)/10,
 			)
 			// cc := color.GetRGBA{R: (c.Color.MustValue()[0] + tc[0]) / 2, G: (c.Color.MustValue()[1] + tc[1]) / 2, B: (c.Color.MustValue()[2] + tc[2]) / 2}
 			cosmeticCountryColors[id] = &common.CountryColor{
@@ -186,6 +186,40 @@ func RefreshCountries() error {
 		return err
 	}
 	fmt.Println("生成国家不同类型名字文件成功！")
+
+	fmt.Println("生成国家不同傀儡类型名字文件中...")
+	autonomyTypeNameFormat := map[string]string{
+		"dominion": "$OVERLORDADJ$属$NONIDEOLOGYADJ$自治领",
+		"colony":   "$OVERLORDADJ$属$NONIDEOLOGYADJ$殖民政府",
+		"puppet":   "$OVERLORDADJ$属$NONIDEOLOGYADJ$",
+		"union":    "$OVERLORDADJ$-$NONIDEOLOGYADJ$邦",
+		"division": "$OVERLORDADJ$-$NONIDEOLOGYADJ$军阀",
+	}
+	var autonomyCountryLocBuffer bytes.Buffer
+	autonomyCountryLocBuffer.WriteString("l_simp_chinese:\n")
+	for _, c := range config.Countries {
+		for at, name := range autonomyTypeNameFormat {
+			countryID := fmt.Sprintf("%s_tew_autonomy_%s", c.ID, at)
+			loc := &localisation.Localisation{
+				Key:   countryID,
+				Index: optional.Some(0),
+				Value: name,
+			}
+			autonomyCountryLocBuffer.WriteByte(' ')
+			autonomyCountryLocBuffer.WriteString(loc.Encode())
+			autonomyCountryLocBuffer.WriteString("\n")
+			loc.Key = countryID + "_DEF"
+			autonomyCountryLocBuffer.WriteByte(' ')
+			autonomyCountryLocBuffer.WriteString(loc.Encode())
+			autonomyCountryLocBuffer.WriteString("\n")
+		}
+		autonomyCountryLocBuffer.WriteString("\n")
+	}
+	err = util.WriteFileWithBOM(filepath.Join(modPath, "localisation", "simp_chinese", "tew_autonomy_name_l_simp_chinese copy.yml"), autonomyCountryLocBuffer.Bytes())
+	if err != nil {
+		return err
+	}
+	fmt.Println("生成国家不同傀儡类型名字文件成功！")
 
 	fmt.Println("生成国家动态变化脚本文件中...")
 	var scriptedEffectBuffer bytes.Buffer

@@ -23,7 +23,7 @@ var Countries = func() map[string]*Country {
 	if err != nil {
 		panic(err)
 	}
-	return stlslices.ToMap[*Country, []*Country, string, *Country, map[string]*Country](countries, func(c *Country) (string, *Country) {
+	return stlslices.ToMap(countries, func(c *Country) (string, *Country) {
 		return c.ID, c
 	})
 }()

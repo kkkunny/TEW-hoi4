@@ -232,7 +232,7 @@
     "region": "Western_European"
   },
   {
-    "id": "ELS",
+    "id": "WLS",
     "name": "威尔士",
     "region": "Western_European"
   },
@@ -244,7 +244,14 @@
   {
     "id": "BRI",
     "name": "不列颠",
-    "region": "Western_European"
+    "region": "Western_European",
+    "color": [208, 12, 39]
+  },
+  {
+    "id": "GBR",
+    "name": "大不列颠",
+    "region": "Western_European",
+    "color": [201, 56, 93]
   },
   {
     "id": "POR",
@@ -254,13 +261,13 @@
   {
     "id": "SPA",
     "name": "西班牙",
-    "region": "Western_European",
-    "color": [242, 205, 94]
+    "region": "Western_European"
   },
   {
     "id": "IBE",
     "name": "伊比利亚",
-    "region": "Western_European"
+    "region": "Western_European",
+    "color": [242, 205, 94]
   },
   {
     "id": "FRA",
@@ -351,6 +358,16 @@
     "region": "Southern_European"
   },
   {
+    "id": "SLO",
+    "name": "斯洛伐克",
+    "region": "Southern_European"
+  },
+  {
+    "id": "YUG",
+    "name": "南斯拉夫",
+    "region": "Southern_European"
+  },
+  {
     "id": "AUH",
     "name": "多瑙河",
     "region": "Southern_European",
@@ -369,6 +386,16 @@
   {
     "id": "BOS",
     "name": "波斯尼亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "KOS",
+    "name": "科索沃",
+    "region": "Southern_European"
+  },
+  {
+    "id": "HRZ",
+    "name": "黑塞哥维那",
     "region": "Southern_European"
   },
   {
@@ -428,8 +455,8 @@
     "region": "Eastern_European"
   },
   {
-    "id": "LIV",
-    "name": "波罗的海",
+    "id": "BAT",
+    "name": "波罗的",
     "region": "Eastern_European"
   },
   {
@@ -491,6 +518,21 @@
   {
     "id": "LBA",
     "name": "利比亚",
+    "region": "African"
+  },
+  {
+    "id": "TUN",
+    "name": "突尼斯",
+    "region": "African"
+  },
+  {
+    "id": "ALG",
+    "name": "阿尔及利亚",
+    "region": "African"
+  },
+  {
+    "id": "WES",
+    "name": "西撒哈拉",
     "region": "African"
   },
   {
@@ -637,6 +679,11 @@
   {
     "id": "NEP",
     "name": "泥泊尔",
+    "region": "Southern_Asian"
+  },
+  {
+    "id": "SKM",
+    "name": "锡金",
     "region": "Southern_Asian"
   },
   {
@@ -802,5 +849,170 @@
     "id": "ASA",
     "name": "亚细亚",
     "region": "Eastern_Asian"
+  },
+  {
+    "id": "CAB",
+    "name": "加勒比",
+    "region": "Northern_American"
+  },
+  {
+    "id": "AKA",
+    "name": "阿拉斯加",
+    "region": "Northern_American"
+  },
+  {
+    "id": "GLC",
+    "name": "加利西亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "NAV",
+    "name": "巴斯克",
+    "region": "Western_European"
+  },
+  {
+    "id": "CAT",
+    "name": "加泰罗尼亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "GAD",
+    "name": "格拉纳达",
+    "region": "Western_European"
+  },
+  {
+    "id": "CTE",
+    "name": "卡斯蒂利亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "BEN",
+    "name": "比荷卢",
+    "region": "Western_European"
+  },
+  {
+    "id": "SUD",
+    "name": "苏丹",
+    "region": "African"
+  },
+  {
+    "id": "DJI",
+    "name": "吉布提",
+    "region": "African"
+  },
+  {
+    "id": "MAD",
+    "name": "马达加斯加",
+    "region": "African"
+  },
+  {
+    "id": "MZB",
+    "name": "莫桑比克",
+    "region": "African"
+  },
+  {
+    "id": "NMB",
+    "name": "纳米比亚",
+    "region": "African"
+  },
+  {
+    "id": "ANG",
+    "name": "安哥拉",
+    "region": "African"
+  },
+  {
+    "id": "RWA",
+    "name": "卢旺达",
+    "region": "African"
+  },
+  {
+    "id": "BRD",
+    "name": "布隆迪",
+    "region": "African"
+  },
+  {
+    "id": "CMR",
+    "name": "喀麦隆",
+    "region": "African"
+  },
+  {
+    "id": "NGA",
+    "name": "尼日利亚",
+    "region": "African"
+  },
+  {
+    "id": "MLI",
+    "name": "马里",
+    "region": "African"
+  },
+  {
+    "id": "OCC",
+    "name": "奥克西塔尼亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "COR",
+    "name": "科西嘉",
+    "region": "Western_European"
+  },
+  {
+    "id": "BTY",
+    "name": "布列塔尼",
+    "region": "Western_European"
+  },
+  {
+    "id": "NMD",
+    "name": "诺曼底",
+    "region": "Western_European"
+  },
+  {
+    "id": "PCD",
+    "name": "皮卡第",
+    "region": "Western_European"
+  },
+  {
+    "id": "PIT",
+    "name": "普瓦图",
+    "region": "Western_European"
+  },
+  {
+    "id": "PAS",
+    "name": "巴黎",
+    "region": "Western_European"
+  },
+  {
+    "id": "ORL",
+    "name": "奥尔良",
+    "region": "Western_European"
+  },
+  {
+    "id": "CHP",
+    "name": "香槟",
+    "region": "Western_European"
+  },
+  {
+    "id": "CHP",
+    "name": "香槟",
+    "region": "Western_European"
+  },
+  {
+    "id": "BRG",
+    "name": "勃艮第",
+    "region": "Western_European"
+  },
+  {
+    "id": "LOR",
+    "name": "洛林",
+    "region": "Western_European"
+  },
+  {
+    "id": "SVY",
+    "name": "萨伏依",
+    "region": "Western_European"
+  },
+  {
+    "id": "BLK",
+    "name": "巴尔干",
+    "region": "Southern_European"
   }
 ]
