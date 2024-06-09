@@ -93,7 +93,9 @@
   {
     "id": "CTA",
     "name": "中美洲",
-    "region": "Northern_American"
+    "region": "Northern_American",
+    "sons": ["CAB", "PAN", "COS", "NIC", "HON", "ELS", "BLZ", "GUA", "CAB"],
+    "upgrade_ratio": 55
   },
   {
     "id": "COL",
@@ -164,7 +166,8 @@
   {
     "id": "GCO",
     "name": "新格拉纳达",
-    "region": "Southern_American"
+    "region": "Southern_American",
+    "sons": ["COL", "VEN", "ECU", "CRC", "TRI"]
   },
   {
     "id": "AST",
@@ -245,13 +248,15 @@
     "id": "BRI",
     "name": "不列颠",
     "region": "Western_European",
-    "color": [208, 12, 39]
+    "color": [208, 12, 39],
+    "sons": ["IRE", "GBR"]
   },
   {
     "id": "GBR",
     "name": "大不列颠",
     "region": "Western_European",
-    "color": [201, 56, 93]
+    "color": [201, 56, 93],
+    "sons": ["ENG", "SCO", "WLS"]
   },
   {
     "id": "POR",
@@ -261,19 +266,23 @@
   {
     "id": "SPA",
     "name": "西班牙",
-    "region": "Western_European"
+    "region": "Western_European",
+    "sons": ["GLC", "NAV", "CAT", "GAD", "CTE"]
   },
   {
     "id": "IBE",
     "name": "伊比利亚",
     "region": "Western_European",
-    "color": [242, 205, 94]
+    "color": [242, 205, 94],
+    "sons": ["SPA", "POR"],
+    "upgrade_ratio": 90
   },
   {
     "id": "FRA",
     "name": "法兰西",
     "region": "Western_European",
-    "color": [74, 147, 255]
+    "color": [74, 147, 255],
+    "sons": ["PCD", "NMD", "BTY", "COR", "OCC", "PIT", "PAS", "ORL", "CHP", "BRG", "LOR", "SVY", "NAV"]
   },
   {
     "id": "ITA",
@@ -315,7 +324,8 @@
   {
     "id": "SCA",
     "name": "北欧",
-    "region": "Northern_European"
+    "region": "Northern_European",
+    "sons": ["DEN", "SWE", "NOR", "FIN", "KAR", "ICE"]
   },
   {
     "id": "SWE",
@@ -365,13 +375,15 @@
   {
     "id": "YUG",
     "name": "南斯拉夫",
-    "region": "Southern_European"
+    "region": "Southern_European",
+    "sons": ["SLV", "SER", "MNT", "CRO", "BOS", "MAC", "KOS", "HRZ"]
   },
   {
     "id": "AUH",
     "name": "多瑙河",
     "region": "Southern_European",
-    "color": [194, 198, 215]
+    "color": [194, 198, 215],
+    "sons": ["AUS", "HUN", "CZE", "TRA", "BOS", "CRO", "SLV"]
   },
   {
     "id": "SLV",
@@ -457,7 +469,8 @@
   {
     "id": "BAT",
     "name": "波罗的",
-    "region": "Eastern_European"
+    "region": "Eastern_European",
+    "sons": ["LIT", "LAT", "EST"]
   },
   {
     "id": "LIT",
@@ -554,7 +567,8 @@
     "id": "OTT",
     "name": "奥斯曼",
     "region": "Middle_East",
-    "color": [68, 154, 92]
+    "color": [68, 154, 92],
+    "sons": ["TUR", "CYP", "SYR", "LEB", "PAL", "JOR", "KUR", "IRQ"]
   },
   {
     "id": "CYP",
@@ -823,12 +837,14 @@
   {
     "id": "STA",
     "name": "南亚美利加",
-    "region": "Southern_American"
+    "region": "Southern_American",
+    "sons": ["BRA", "ARG", "CHL", "URG", "PAT", "BOL", "PAR", "PRU", "GYA", "GCO"]
   },
   {
     "id": "NAM",
     "name": "北亚美利加",
-    "region": "Northern_American"
+    "region": "Northern_American",
+    "sons": ["USA", "CAN", "MAX", "CTA"]
   },
   {
     "id": "OCE",
@@ -853,7 +869,8 @@
   {
     "id": "CAB",
     "name": "加勒比",
-    "region": "Northern_American"
+    "region": "Northern_American",
+    "sons": ["BAH", "CUB", "JAM", "HAI", "DOM", "PUE", "BAS", "GDL"]
   },
   {
     "id": "AKA",
@@ -888,7 +905,8 @@
   {
     "id": "BEN",
     "name": "比荷卢",
-    "region": "Western_European"
+    "region": "Western_European",
+    "sons": ["HOL", "BEL", "LUX"]
   },
   {
     "id": "SUD",
@@ -1013,6 +1031,7 @@
   {
     "id": "BLK",
     "name": "巴尔干",
-    "region": "Southern_European"
+    "region": "Southern_European",
+    "sons": ["YUG", "TUR", "BUL", "ROM", "GRE", "ALB", "TRA"]
   }
 ]

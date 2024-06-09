@@ -8,10 +8,12 @@ import (
 	"math/rand/v2"
 	"os"
 	"path/filepath"
+	"strings"
 
 	stlbasic "github.com/kkkunny/stl/basic"
 	"github.com/kkkunny/stl/container/hashset"
 	"github.com/kkkunny/stl/container/optional"
+	"github.com/kkkunny/stl/container/pair"
 	stlslices "github.com/kkkunny/stl/container/slices"
 	"github.com/lucasb-eyer/go-colorful"
 	"golang.org/x/exp/maps"
@@ -221,9 +223,108 @@ func RefreshCountries() error {
 	}
 	fmt.Println("生成国家不同傀儡类型名字文件成功！")
 
+	var findSonCountries func(tag string) []*config.Country
+	findSonCountries = func(tag string) []*config.Country {
+		c, ok := config.Countries[tag]
+		if !ok || config.Countries[tag].Sons.IsNone() || stlslices.Empty(config.Countries[tag].Sons.MustValue()) {
+			return nil
+		}
+		return stlslices.RemoveRepeat(stlslices.Filter(stlslices.FlatMap(c.Sons.MustValue(), func(_ int, e string) []*config.Country {
+			return append(findSonCountries(e), config.Countries[e])
+		}), func(_ int, e *config.Country) bool {
+			return e != nil
+		}))
+	}
+
+	canUpgradedCountries := stlslices.ToMap(stlslices.Filter(maps.Values(config.Countries), func(_ int, c *config.Country) bool {
+		return c.Sons.IsSome() && !stlslices.Empty(c.Sons.MustValue())
+	}), func(e *config.Country) (string, *config.Country) {
+		return e.ID, e
+	})
+	sonTag2ParentTags := stlslices.FlatMap(maps.Values(canUpgradedCountries), func(_ int, c *config.Country) []pair.Pair[*config.Country, *config.Country] {
+		return stlslices.Filter(stlslices.FlatMap(c.Sons.MustValue(), func(_ int, sonTag string) []pair.Pair[*config.Country, *config.Country] {
+			return stlslices.Map(append(findSonCountries(sonTag), config.Countries[sonTag]), func(_ int, son *config.Country) pair.Pair[*config.Country, *config.Country] {
+				return pair.NewPair(son, c)
+			})
+		}), func(_ int, e pair.Pair[*config.Country, *config.Country]) bool {
+			return e.First != nil
+		})
+	})
+	sonTag2ParentTagsMap := make(map[string]*hashset.HashSet[string], len(sonTag2ParentTags))
+	for _, p := range sonTag2ParentTags {
+		if sonTag2ParentTagsMap[p.First.ID] == nil {
+			sonTag2ParentTagsMap[p.First.ID] = stlbasic.Ptr(hashset.NewHashSet[string]())
+		}
+		sonTag2ParentTagsMap[p.First.ID].Add(p.Second.ID)
+	}
+
+	fmt.Println("生成国家成立脚本文件中...")
+	var tagScriptedEffectBuffer bytes.Buffer
+	tagScriptedEffectBuffer.WriteString("ideas = {\n\tcountry_tag = {\n\t\tlaw = yes\n\n\t\tcountry_tag_default = {\n\t\t\ton_add = {\n\t\t\t\ttew_update_country_type = yes\n\t\t\t}\n\n\t\t\tai_will_do = { factor = 0 }\n\n\t\t\tcancel_if_invalid = yes\n\t\t\tdefault = yes\n\t\t}")
+	for _, c := range canUpgradedCountries {
+		tagScriptedEffectBuffer.WriteString("\n\n\t\t")
+		tagScriptedEffectBuffer.WriteString("country_tag_")
+		tagScriptedEffectBuffer.WriteString(c.ID)
+		tagScriptedEffectBuffer.WriteString(" = {\n\t\t\tallowed = {\n\t\t\t\tOR = {\n\t\t\t\t\t")
+		tagScriptedEffectBuffer.WriteString(strings.Join(stlslices.Map(findSonCountries(c.ID), func(_ int, e *config.Country) string { return "original_tag = " + e.ID }), "\n\t\t\t\t\t"))
+		tagScriptedEffectBuffer.WriteString(fmt.Sprintf("\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tavailable = {\n\t\t\t\ttew_can_ndependent_diplomacy = yes\n\t\t\t\tNOT = {\n\t\t\t\t\tcountry_exists = %s\n\t\t\t\t\tany_other_country = {\n\t\t\t\t\t\tlimit = { exists = yes }\n\t\t\t\t\t\thas_idea = country_tag_%s\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\t%s = {\n\t\t\t\t\tset_temp_variable = { tew_than_number = %d }\n\t\t\t\t\ttew_self_or_puppet_owns_gte = yes\n\t\t\t\t}\n\t\t\t}\n\n\t\t\ton_add = {\n\t\t\t\ttew_update_country_type = yes\n\t\t\t}\n\n\t\t\tai_will_do = {\n\t\t\t\tfactor = 100", c.ID, c.ID, c.ID, c.UpgradeRatio.ValueWith(70)))
+		sonTags := stlslices.Map(findSonCountries(c.ID), func(_ int, e *config.Country) string { return e.ID })
+		conflictCountries := hashset.NewHashSet[string]()
+		for _, scTag := range sonTags {
+			parents, ok := sonTag2ParentTagsMap[scTag]
+			if !ok {
+				continue
+			}
+			for iter := parents.Iterator(); iter.Next(); {
+				if iter.Value() == c.ID {
+					continue
+				} else if stlslices.Contain(sonTags, iter.Value()) {
+					continue
+				} else if conflictCountries.Contain(iter.Value()) {
+					continue
+				}
+				conflictCountries.Add(iter.Value())
+				tagScriptedEffectBuffer.WriteString(fmt.Sprintf("\n\t\t\t\tmodifier = {\n\t\t\t\t\tfactor = 0\n\t\t\t\t\thas_idea = country_tag_%s\n\t\t\t\t}", iter.Value()))
+			}
+		}
+		tagScriptedEffectBuffer.WriteString("\n\t\t\t}\n\n\t\t\tcancel_if_invalid = yes\n\t\t}")
+	}
+	tagScriptedEffectBuffer.WriteString("\n}")
+	err = os.WriteFile(filepath.Join(modPath, "common", "ideas", "tew_attr_country_tag_auto_generate.txt"), tagScriptedEffectBuffer.Bytes(), 0666)
+	if err != nil {
+		return err
+	}
+	fmt.Println("生成国家成立脚本文件成功！")
+
 	fmt.Println("生成国家动态变化脚本文件中...")
 	var scriptedEffectBuffer bytes.Buffer
+	scriptedEffectBuffer.WriteString("# 更新国家类型\n#param: THIS\ntew_update_country_type = {\n\t# clear flag\n\tclr_country_flag = country_type_none\n\tclr_country_flag = country_type_anarchism\n\tclr_country_flag = country_type_communism\n\tclr_country_flag = country_type_democratic\n\tclr_country_flag = country_type_conservatism\n\tclr_country_flag = country_type_feudalism\n\tclr_country_flag = country_type_dictatorship\n\tclr_country_flag = country_type_fascism\n\n\t# set flag\n\tif = {\n\t\tlimit = { tew_can_ndependent_diplomacy = no }\n\t\tset_country_flag = country_type_none\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\thas_idea = gov_anarchist_commune\n\t\t}\n\t\tset_country_flag = country_type_anarchism\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\thas_idea = gov_communist_dictatorship\n\t\t\t\thas_idea = gov_communist_republic\n\t\t\t}\n\t\t}\n\t\tset_country_flag = country_type_communism\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\thas_idea = gov_presidential_republic\n\t\t\t\thas_idea = gov_parliamentary_republic\n\t\t\t\thas_idea = gov_committee_republic\n\t\t\t}\n\t\t}\n\t\tset_country_flag = country_type_democratic\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\thas_idea = gov_parliamentary_constitutional_monarchy\n\t\t}\n\t\tset_country_flag = country_type_conservatism\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\thas_idea = gov_dualist_constitutional_monarchy\n\t\t\t\thas_idea = gov_absolute_monarchy\n\t\t\t}\n\t\t}\n\t\tset_country_flag = country_type_feudalism\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\thas_idea = gov_presidential_dictatorship\n\t\t\t\thas_idea = gov_parliamentary_dictatorship\n\t\t\t\thas_idea = gov_military_dictatorship\n\t\t\t}\n\t\t}\n\t\tset_country_flag = country_type_dictatorship\n\t}\n\telse_if = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\thas_idea = gov_fascist_republic\n\t\t\t\thas_idea = gov_fascist_dictatorship\n\t\t\t}\n\t\t}\n\t\tset_country_flag = country_type_fascism\n\t}\n\n\t# set cosmetic tag\n\tif = {\n\t\tlimit = { has_country_flag = country_type_none }\n\t\tdrop_cosmetic_tag = yes\n\t}\n\telse_if = {\n\t\tlimit = { NOT = { has_idea = country_tag_default } }\n")
 	var i int
+	for _, c := range canUpgradedCountries {
+		scriptedEffectBuffer.WriteString("\t\t")
+		scriptedEffectBuffer.WriteString(stlbasic.Ternary(i == 0, "if", "else_if"))
+		scriptedEffectBuffer.WriteString(" = {\n\t\t\tlimit = { has_idea = country_tag_")
+		scriptedEffectBuffer.WriteString(c.ID)
+		scriptedEffectBuffer.WriteString(" }\n")
+
+		var j int
+		for t, _ := range countryTypes {
+			scriptedEffectBuffer.WriteString("\t\t\t")
+			scriptedEffectBuffer.WriteString(stlbasic.Ternary(j == 0, "if", "else_if"))
+			scriptedEffectBuffer.WriteString(" = {\n\t\t\t\tlimit = { has_country_flag = country_type_")
+			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString(" }\n\t\t\t\tset_cosmetic_tag = ")
+			scriptedEffectBuffer.WriteString(c.ID)
+			scriptedEffectBuffer.WriteString("_type_")
+			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString("\n\t\t\t}\n")
+			j++
+		}
+		scriptedEffectBuffer.WriteString("\t\t}\n")
+		i++
+	}
+	scriptedEffectBuffer.WriteString("\t}\n\telse = {\n")
+	i = 0
 	for _, c := range config.Countries {
 		scriptedEffectBuffer.WriteString("\t\t")
 		scriptedEffectBuffer.WriteString(stlbasic.Ternary(i == 0, "if", "else_if"))
@@ -247,10 +348,27 @@ func RefreshCountries() error {
 		scriptedEffectBuffer.WriteString("\t\t}\n")
 		i++
 	}
-	err = os.WriteFile("scripted_effects.txt", scriptedEffectBuffer.Bytes(), 0666)
+	scriptedEffectBuffer.WriteString("\t}\n}\n")
+	err = os.WriteFile(filepath.Join(modPath, "common", "scripted_effects", "tew_tag_scripted_effects_auto_generate.txt"), scriptedEffectBuffer.Bytes(), 0666)
 	if err != nil {
 		return err
 	}
 	fmt.Println("生成国家动态变化脚本文件成功！")
+
+	fmt.Println("生成可变身国家名字文件中...")
+	var canUpgradeCountryLocBuffer bytes.Buffer
+	canUpgradeCountryLocBuffer.WriteString("l_simp_chinese:\n country_tag:0 \"国家\"\n idea_group_country_tag:0 \"国家\"\n idea_group_country_tag_desc:0 \"国家\"\n country_tag_default:0 \"默认\"\n")
+	for _, c := range canUpgradedCountries {
+		canUpgradeCountryLocBuffer.WriteString(" country_tag_")
+		canUpgradeCountryLocBuffer.WriteString(c.ID)
+		canUpgradeCountryLocBuffer.WriteString(":0 \"")
+		canUpgradeCountryLocBuffer.WriteString(c.Name)
+		canUpgradeCountryLocBuffer.WriteString("\"\n")
+	}
+	err = util.WriteFileWithBOM(filepath.Join(modPath, "localisation", "simp_chinese", "tew_country_tag_auto_generate_l_simp_chinese.yml"), canUpgradeCountryLocBuffer.Bytes())
+	if err != nil {
+		return err
+	}
+	fmt.Println("生成可变身国家名字文件成功！")
 	return nil
 }

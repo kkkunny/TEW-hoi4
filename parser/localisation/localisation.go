@@ -47,7 +47,7 @@ func ParseLocalisation(path string) (map[string]*Localisation, error) {
 			Value: match[3],
 		}, nil
 	})
-	return stlslices.ToMap[*Localisation, []*Localisation, string, *Localisation, map[string]*Localisation](locs, func(loc *Localisation) (string, *Localisation) {
+	return stlslices.ToMap(locs, func(loc *Localisation) (string, *Localisation) {
 		return loc.Key, loc
 	}), nil
 }

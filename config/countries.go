@@ -9,10 +9,12 @@ import (
 )
 
 type Country struct {
-	ID     string                      `json:"id"`
-	Name   string                      `json:"name"`
-	Region string                      `json:"region"`
-	Color  optional.Optional[[3]uint8] `json:"color,omitempty"`
+	ID           string                      `json:"id"`
+	Name         string                      `json:"name"`
+	Region       string                      `json:"region"`
+	Color        optional.Optional[[3]uint8] `json:"color,omitempty"`
+	Sons         optional.Optional[[]string] `json:"sons,omitempty"`
+	UpgradeRatio optional.Optional[int64]    `json:"upgrade_ratio,omitempty"`
 }
 
 //go:embed countries.json
