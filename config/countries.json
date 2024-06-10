@@ -446,7 +446,9 @@
   {
     "id": "ROM",
     "name": "罗马利亚",
-    "region": "Southern_European"
+    "region": "Southern_European",
+    "sons": ["WLC", "MOL", "TRA"],
+    "upgrade_ratio": 55
   },
   {
     "id": "MOL",
@@ -527,11 +529,6 @@
     "region": "African"
   },
   {
-    "id": "SAF",
-    "name": "南非",
-    "region": "African"
-  },
-  {
     "id": "LBA",
     "name": "利比亚",
     "region": "African"
@@ -554,7 +551,7 @@
   {
     "id": "EGY",
     "name": "埃及",
-    "region": "African"
+    "region": "Middle_East"
   },
   {
     "id": "COG",
@@ -656,7 +653,7 @@
   {
     "id": "AFG",
     "name": "阿富汗",
-    "region": "Middle_East"
+    "region": "Southern_Asian"
   },
   {
     "id": "TMS",
@@ -853,11 +850,6 @@
     "id": "OCE",
     "name": "大洋",
     "region": "Australian"
-  },
-  {
-    "id": "AFR",
-    "name": "阿非利加",
-    "region": "African"
   },
   {
     "id": "EUR",
@@ -1210,5 +1202,246 @@
     "name": "突厥",
     "region": "Central_Asian",
     "sons": ["KAZ", "TMS", "UZB", "TAJ", "KYR"]
+  },
+  {
+    "id": "MRT",
+    "name": "毛里塔尼亚",
+    "region": "African"
+  },
+  {
+    "id": "SEN",
+    "name": "塞内加尔",
+    "region": "African"
+  },
+  {
+    "id": "GAM",
+    "name": "冈比亚",
+    "region": "African"
+  },
+  {
+    "id": "GNB",
+    "name": "几内亚比绍",
+    "region": "African"
+  },
+  {
+    "id": "GNA",
+    "name": "几内亚",
+    "region": "African"
+  },
+  {
+    "id": "SIE",
+    "name": "塞拉利昂",
+    "region": "African"
+  },
+  {
+    "id": "IVO",
+    "name": "科特迪瓦",
+    "region": "African"
+  },
+  {
+    "id": "VOL",
+    "name": "上沃尔特",
+    "region": "African"
+  },
+  {
+    "id": "TOG",
+    "name": "多哥",
+    "region": "African"
+  },
+  {
+    "id": "GHA",
+    "name": "加纳",
+    "region": "African"
+  },
+  {
+    "id": "DAH",
+    "name": "贝宁",
+    "region": "African"
+  },
+  {
+    "id": "NGR",
+    "name": "尼日尔",
+    "region": "African"
+  },
+  {
+    "id": "NGA",
+    "name": "尼日利亚",
+    "region": "African"
+  },
+  {
+    "id": "CMR",
+    "name": "喀麦隆",
+    "region": "African"
+  },
+  {
+    "id": "GAB",
+    "name": "加蓬",
+    "region": "African"
+  },
+  {
+    "id": "EQG",
+    "name": "赤道几内亚",
+    "region": "African"
+  },
+  {
+    "id": "CHA",
+    "name": "乍得",
+    "region": "African"
+  },
+  {
+    "id": "BOT",
+    "name": "博茨瓦纳",
+    "region": "African"
+  },
+  {
+    "id": "ZIM",
+    "name": "津巴布韦",
+    "region": "African"
+  },
+  {
+    "id": "ZAM",
+    "name": "赞比亚",
+    "region": "African"
+  },
+  {
+    "id": "MLW",
+    "name": "马拉维",
+    "region": "African"
+  },
+  {
+    "id": "TZN",
+    "name": "坦桑尼亚",
+    "region": "African"
+  },
+  {
+    "id": "UGA",
+    "name": "乌干达",
+    "region": "African"
+  },
+  {
+    "id": "KEN",
+    "name": "肯尼亚",
+    "region": "African"
+  },
+  {
+    "id": "ERI",
+    "name": "厄立特里亚",
+    "region": "African"
+  },
+  {
+    "id": "VER",
+    "name": "佛得角",
+    "region": "African"
+  },
+  {
+    "id": "SAO",
+    "name": "圣多美和普林西比",
+    "region": "African"
+  },
+  {
+    "id": "STH",
+    "name": "赫勒拿",
+    "region": "African"
+  },
+  {
+    "id": "COM",
+    "name": "科摩罗",
+    "region": "African"
+  },
+  {
+    "id": "MAU",
+    "name": "毛里求斯",
+    "region": "African"
+  },
+  {
+    "id": "SEY",
+    "name": "塞舌尔",
+    "region": "African"
+  },
+  {
+    "id": "SWA",
+    "name": "斯威士兰",
+    "region": "African"
+  },
+  {
+    "id": "LES",
+    "name": "莱索托",
+    "region": "African"
+  },
+  {
+    "id": "EAF",
+    "name": "东阿非利加",
+    "region": "African",
+    "sons": ["ERI", "ETH", "DJI", "SOM", "SUD", "UGA", "KEN", "RWA", "BRD", "TZN", "SEY"]
+  },
+  {
+    "id": "SAF",
+    "name": "南阿非利加",
+    "region": "African",
+    "sons": ["LES", "SWA", "BOT", "ZIM", "MZB", "MLW", "ZAM", "NMB", "ANG", "MAD", "COM", "MAU", "STH"]
+  },
+  {
+    "id": "MAF",
+    "name": "中阿非利加",
+    "region": "African",
+    "sons": ["COG", "GAB", "EQG", "SAO", "CMR", "CHA", "NGR", "NGA", "DAH"]
+  },
+  {
+    "id": "WAF",
+    "name": "西阿非利加",
+    "region": "African",
+    "sons": ["MLI", "VOL", "TOG", "GHA", "IVO", "GNA", "LIB", "MRT", "SIE", "SEN", "GNB", "GAM", "WES", "VER"]
+  },
+  {
+    "id": "NAF",
+    "name": "北阿非利加",
+    "region": "African",
+    "sons": ["MOR", "ALG", "TUN", "LBA", "EGY"]
+  },
+  {
+    "id": "AFR",
+    "name": "阿非利加",
+    "region": "African",
+    "sons": ["EAF", "SAF", "MAF", "WAF", "NAF"]
+  },
+  {
+    "id": "KUR",
+    "name": "库尔德",
+    "region": "Middle_East"
+  },
+  {
+    "id": "MID",
+    "name": "中东",
+    "region": "Middle_East",
+    "sons": ["EGY", "ISR", "SAU", "YEM", "OMA", "UAE", "QAT", "KUW", "OTT", "PER", "SCS"]
+  },
+  {
+    "id": "ARA",
+    "name": "阿拉伯",
+    "region": "Middle_East",
+    "sons": ["NAF", "WES", "MRT", "SUD", "PAL", "SAU", "LEB", "SYR", "IRQ", "KUW", "UAE", "OMA", "YEM", "JOR"]
+  },
+  {
+    "id": "WLC",
+    "name": "瓦拉几亚",
+    "region": "Southern_European"
+  },
+  {
+    "id": "WRM",
+    "name": "西罗马",
+    "region": "Southern_European",
+    "sons": ["ITA", "BOS", "CRO", "SLV", "SGF", "FRA", "SWI", "CYP", "LUX", "BEL", "ENG", "IBE", "MOR", "ALG", "TUN", "LBA", "WLS"]
+  },
+  {
+    "id": "ERM",
+    "name": "东罗马",
+    "region": "Western_European",
+    "sons": ["GRE", "ALB", "MNT", "MAC", "SER", "KOS", "BUL", "WLC", "TUR", "CYP", "SYR", "LEB", "JOR", "ISR", "PAL", "EGY"]
+  },
+  {
+    "id": "RME",
+    "name": "罗马",
+    "region": "Western_European",
+    "sons": ["WRM", "ERM"]
   }
 ]
