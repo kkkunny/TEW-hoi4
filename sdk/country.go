@@ -12,6 +12,8 @@ import (
 
 	stlbasic "github.com/kkkunny/stl/basic"
 	"github.com/kkkunny/stl/container/hashset"
+	"github.com/kkkunny/stl/container/linkedhashmap"
+	stlmaps "github.com/kkkunny/stl/container/maps"
 	"github.com/kkkunny/stl/container/optional"
 	"github.com/kkkunny/stl/container/pair"
 	stlslices "github.com/kkkunny/stl/container/slices"
@@ -113,18 +115,19 @@ func RefreshCountries() error {
 
 	fmt.Println("生成不同国家类型颜色文件中...")
 	cosmeticCountryColors := make(map[string]*common.CountryColor, len(config.Countries))
-	countryTypes := map[string][3]uint8{
-		"anarchism":    {255, 107, 0},
-		"communism":    {255, 0, 0},
-		"democratic":   {0, 0, 255},
-		"conservatism": {0, 255, 255},
-		"feudalism":    {192, 192, 192},
-		"dictatorship": {255, 255, 0},
-		"fascism":      {102, 51, 0},
-	}
+	countryTypes := linkedhashmap.NewLinkedHashMapWith[string, [3]uint8](
+		"anarchism", [3]uint8{255, 107, 0},
+		"communism", [3]uint8{255, 0, 0},
+		"democratic", [3]uint8{0, 0, 255},
+		"conservatism", [3]uint8{0, 255, 255},
+		"feudalism", [3]uint8{192, 192, 192},
+		"dictatorship", [3]uint8{255, 255, 0},
+		"fascism", [3]uint8{102, 51, 0},
+	)
 	for _, c := range config.Countries {
-		for t, tc := range countryTypes {
-			id := fmt.Sprintf("%s_type_%s", c.ID, t)
+		for iter := countryTypes.Iterator(); iter.Next(); {
+			tc := iter.Value().Second
+			id := fmt.Sprintf("%s_type_%s", c.ID, iter.Value().First)
 			cc := util.AlphaBlendColor(
 				util.NewRGB(c.Color.MustValue()[0], c.Color.MustValue()[1], c.Color.MustValue()[2]),
 				util.NewRGB(tc[0], tc[1], tc[2]),
@@ -149,6 +152,11 @@ func RefreshCountries() error {
 	}
 	fmt.Println("生成不同国家类型颜色文件成功！")
 
+	locs, err := localisation.ParseChineseLocalisationDir(config.TEWRootPath)
+	if err != nil {
+		return err
+	}
+
 	fmt.Println("生成国家不同类型名字文件中...")
 	countryTypeNameFormat := map[string]string{
 		"anarchism":    "%s公社",
@@ -162,12 +170,12 @@ func RefreshCountries() error {
 	var cosmeticCountryLocBuffer bytes.Buffer
 	cosmeticCountryLocBuffer.WriteString("l_simp_chinese:\n")
 	for _, c := range config.Countries {
-		for t, _ := range countryTypes {
-			countryID := fmt.Sprintf("%s_type_%s", c.ID, t)
+		for iter := countryTypes.Iterator(); iter.Next(); {
+			countryID := fmt.Sprintf("%s_type_%s", c.ID, iter.Value().First)
 			loc := &localisation.Localisation{
 				Key:   countryID,
 				Index: optional.Some(0),
-				Value: fmt.Sprintf(countryTypeNameFormat[t], c.Name),
+				Value: stlbasic.Ternary(stlmaps.ContainKey(locs, countryID), locs[countryID].Value, fmt.Sprintf(countryTypeNameFormat[iter.Value().First], c.Name)),
 			}
 			cosmeticCountryLocBuffer.WriteByte(' ')
 			cosmeticCountryLocBuffer.WriteString(loc.Encode())
@@ -176,14 +184,10 @@ func RefreshCountries() error {
 			cosmeticCountryLocBuffer.WriteByte(' ')
 			cosmeticCountryLocBuffer.WriteString(loc.Encode())
 			cosmeticCountryLocBuffer.WriteString("\n")
-			loc.Key = countryID + "_ADJ"
-			cosmeticCountryLocBuffer.WriteByte(' ')
-			cosmeticCountryLocBuffer.WriteString(loc.Encode())
-			cosmeticCountryLocBuffer.WriteString("\n")
 		}
 		cosmeticCountryLocBuffer.WriteString("\n")
 	}
-	err = util.WriteFileWithBOM(filepath.Join(modPath, "localisation", "simp_chinese", "tew_country_types_l_simp_chinese.yml.bak"), cosmeticCountryLocBuffer.Bytes())
+	err = util.WriteFileWithBOM(filepath.Join(modPath, "localisation", "simp_chinese", "tew_country_types_auto_generate_l_simp_chinese.yml"), cosmeticCountryLocBuffer.Bytes())
 	if err != nil {
 		return err
 	}
@@ -308,15 +312,15 @@ func RefreshCountries() error {
 		scriptedEffectBuffer.WriteString(" }\n")
 
 		var j int
-		for t, _ := range countryTypes {
+		for iter := countryTypes.Iterator(); iter.Next(); {
 			scriptedEffectBuffer.WriteString("\t\t\t")
 			scriptedEffectBuffer.WriteString(stlbasic.Ternary(j == 0, "if", "else_if"))
 			scriptedEffectBuffer.WriteString(" = {\n\t\t\t\tlimit = { has_country_flag = country_type_")
-			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString(iter.Value().First)
 			scriptedEffectBuffer.WriteString(" }\n\t\t\t\tset_cosmetic_tag = ")
 			scriptedEffectBuffer.WriteString(c.ID)
 			scriptedEffectBuffer.WriteString("_type_")
-			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString(iter.Value().First)
 			scriptedEffectBuffer.WriteString("\n\t\t\t}\n")
 			j++
 		}
@@ -333,15 +337,15 @@ func RefreshCountries() error {
 		scriptedEffectBuffer.WriteString(" }\n")
 
 		var j int
-		for t, _ := range countryTypes {
+		for iter := countryTypes.Iterator(); iter.Next(); {
 			scriptedEffectBuffer.WriteString("\t\t\t")
 			scriptedEffectBuffer.WriteString(stlbasic.Ternary(j == 0, "if", "else_if"))
 			scriptedEffectBuffer.WriteString(" = {\n\t\t\t\tlimit = { has_country_flag = country_type_")
-			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString(iter.Value().First)
 			scriptedEffectBuffer.WriteString(" }\n\t\t\t\tset_cosmetic_tag = ")
 			scriptedEffectBuffer.WriteString(c.ID)
 			scriptedEffectBuffer.WriteString("_type_")
-			scriptedEffectBuffer.WriteString(t)
+			scriptedEffectBuffer.WriteString(iter.Value().First)
 			scriptedEffectBuffer.WriteString("\n\t\t\t}\n")
 			j++
 		}
@@ -370,5 +374,19 @@ func RefreshCountries() error {
 		return err
 	}
 	fmt.Println("生成可变身国家名字文件成功！")
+
+	fmt.Println("生成可变身国家图标文件中...")
+	var canUpgradeCountryIconBuffer bytes.Buffer
+	canUpgradeCountryIconBuffer.WriteString("spriteTypes = {")
+	for _, c := range canUpgradedCountries {
+		canUpgradeCountryIconBuffer.WriteString(fmt.Sprintf("\n\tspriteType = {\n\t\tname = \"GFX_idea_country_tag_%s\"\n\t\ttexturefile = \"gfx\\\\flags\\\\medium\\\\%s.tga\"\n\t}", c.ID, c.ID))
+		canUpgradeCountryIconBuffer.WriteString("\n")
+	}
+	canUpgradeCountryIconBuffer.WriteString("}")
+	err = os.WriteFile(filepath.Join(modPath, "interface", "tew_country_tga_auto_generate.gfx"), canUpgradeCountryIconBuffer.Bytes(), 0666)
+	if err != nil {
+		return err
+	}
+	fmt.Println("生成可变身国家图标文件成功！")
 	return nil
 }

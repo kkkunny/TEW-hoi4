@@ -31,7 +31,7 @@ func ParseLocalisation(path string) (map[string]*Localisation, error) {
 		return nil, err
 	}
 	content := string(data)
-	matches := regexp.MustCompile(`(.+?)\s*:\s*(\d*)\s*"(.*)"`).FindAllStringSubmatch(content, -1)
+	matches := regexp.MustCompile(`\s*(.+?)\s*:\s*(\d*)\s*"(.*)"`).FindAllStringSubmatch(content, -1)
 	locs, err := stlslices.MapError(matches, func(_ int, match []string) (*Localisation, error) {
 		var index optional.Optional[int]
 		if match[2] != "" {

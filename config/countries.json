@@ -267,28 +267,30 @@
     "id": "SPA",
     "name": "西班牙",
     "region": "Western_European",
-    "sons": ["GLC", "NAV", "CAT", "GAD", "CTE"]
+    "sons": ["GLC", "NAV", "CAT", "GAD", "CTE"],
+    "color": [242, 205, 94]
   },
   {
     "id": "IBE",
     "name": "伊比利亚",
     "region": "Western_European",
-    "color": [242, 205, 94],
     "sons": ["SPA", "POR"],
-    "upgrade_ratio": 90
+    "upgrade_ratio": 90,
+    "color": [200, 100, 31]
   },
   {
     "id": "FRA",
     "name": "法兰西",
     "region": "Western_European",
     "color": [74, 147, 255],
-    "sons": ["PCD", "NMD", "BTY", "COR", "OCC", "PIT", "PAS", "ORL", "CHP", "BRG", "LOR", "SVY", "NAV"]
+    "sons": ["PCD", "NMD", "BTY", "COR", "OCC", "PIT", "PAS", "ORL", "CHP", "BRG", "LOR", "SVY", "NAV", "ALS"]
   },
   {
     "id": "ITA",
     "name": "意大利",
     "region": "Western_European",
-    "color": [67, 127, 63]
+    "color": [67, 127, 63],
+    "sons": ["PMT", "SRD", "LBD", "RMN", "VNS", "TSC", "PAP", "TTS"]
   },
   {
     "id": "SWI",
@@ -314,7 +316,8 @@
     "id": "GER",
     "name": "德意志",
     "region": "Western_European",
-    "color": [138, 155, 116]
+    "color": [138, 155, 116],
+    "sons": ["NGF", "SGF"]
   },
   {
     "id": "DEN",
@@ -838,7 +841,7 @@
     "id": "STA",
     "name": "南亚美利加",
     "region": "Southern_American",
-    "sons": ["BRA", "ARG", "CHL", "URG", "PAT", "BOL", "PAR", "PRU", "GYA", "GCO"]
+    "sons": ["BRA", "PLA", "PRU", "GYA", "GCO"]
   },
   {
     "id": "NAM",
@@ -1033,5 +1036,179 @@
     "name": "巴尔干",
     "region": "Southern_European",
     "sons": ["YUG", "TUR", "BUL", "ROM", "GRE", "ALB", "TRA"]
+  },
+  {
+    "id": "PMT",
+    "name": "皮埃蒙特",
+    "region": "Western_European"
+  },
+  {
+    "id": "SRD",
+    "name": "撒丁",
+    "region": "Western_European"
+  },
+  {
+    "id": "LBD",
+    "name": "伦巴第",
+    "region": "Western_European"
+  },
+  {
+    "id": "RMN",
+    "name": "艾米利亚-罗马涅",
+    "region": "Western_European"
+  },
+  {
+    "id": "VNS",
+    "name": "威尼斯",
+    "region": "Western_European"
+  },
+  {
+    "id": "TSC",
+    "name": "托斯卡纳",
+    "region": "Western_European"
+  },
+  {
+    "id": "PAP",
+    "name": "教宗国",
+    "region": "Western_European"
+  },
+  {
+    "id": "NPS",
+    "name": "那不勒斯",
+    "region": "Western_European"
+  },
+  {
+    "id": "SCL",
+    "name": "西西里",
+    "region": "Western_European"
+  },
+  {
+    "id": "TTS",
+    "name": "两西西里",
+    "region": "Western_European",
+    "sons": ["NPS", "SCL", "MLT"]
+  },
+  {
+    "id": "MLT",
+    "name": "马耳他",
+    "region": "Western_European"
+  },
+  {
+    "id": "ALS",
+    "name": "阿尔萨斯",
+    "region": "Western_European"
+  },
+  {
+    "id": "PRE",
+    "name": "普鲁士",
+    "region": "Western_European"
+  },
+  {
+    "id": "SIL",
+    "name": "西里西亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "KSH",
+    "name": "卡舒比",
+    "region": "Western_European"
+  },
+  {
+    "id": "BAY",
+    "name": "巴伐利亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "SHL",
+    "name": "石勒苏益格-荷尔斯泰因",
+    "region": "Western_European"
+  },
+  {
+    "id": "MEK",
+    "name": "梅克伦堡",
+    "region": "Western_European"
+  },
+  {
+    "id": "HAN",
+    "name": "汉诺威",
+    "region": "Western_European"
+  },
+  {
+    "id": "WUR",
+    "name": "巴登-符腾堡",
+    "region": "Western_European"
+  },
+  {
+    "id": "HES",
+    "name": "黑森",
+    "region": "Western_European"
+  },
+  {
+    "id": "RHI",
+    "name": "莱茵兰",
+    "region": "Western_European"
+  },
+  {
+    "id": "WSP",
+    "name": "威斯特伐利亚",
+    "region": "Western_European"
+  },
+  {
+    "id": "SAX",
+    "name": "萨克森",
+    "region": "Western_European"
+  },
+  {
+    "id": "BLD",
+    "name": "勃兰登堡",
+    "region": "Western_European"
+  },
+  {
+    "id": "NGF",
+    "name": "北德意志",
+    "region": "Western_European",
+    "sons": ["PRE", "SIL", "KSH", "SHL", "MEK", "HAN", "HES", "RHI", "WSP", "BLD", "SAX"]
+  },
+  {
+    "id": "SGF",
+    "name": "南德意志",
+    "region": "Western_European",
+    "sons": ["AUS", "BAY", "WUR", "ALS"]
+  },
+  {
+    "id": "GRO",
+    "name": "大德意志",
+    "region": "Western_European",
+    "sons": ["GER", "BEN", "SWI", "CZE"]
+  },
+  {
+    "id": "FRE",
+    "name": "法兰克",
+    "region": "Western_European",
+    "sons": ["FRA", "BEN", "SWI", "SGF", "WSP", "SHL", "RHI", "HES", "HAN", "PMT", "VNS", "LBD", "RMN", "TSC", "PAP", "SLV"]
+  },
+  {
+    "id": "SCS",
+    "name": "外高加索",
+    "region": "Middle_East",
+    "sons": ["GEO", "ARM", "AZR"]
+  },
+  {
+    "id": "NCS",
+    "name": "北高加索",
+    "region": "Eastern_European",
+    "sons": ["DAG"]
+  },
+  {
+    "id": "PLA",
+    "name": "拉普拉塔",
+    "region": "Southern_American",
+    "sons": ["ARG", "CHL", "PAT", "PAR", "BOL", "URG"]
+  },
+  {
+    "id": "TKS",
+    "name": "突厥",
+    "region": "Central_Asian",
+    "sons": ["KAZ", "TMS", "UZB", "TAJ", "KYR"]
   }
 ]
